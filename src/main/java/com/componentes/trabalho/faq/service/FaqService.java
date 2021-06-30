@@ -1,6 +1,7 @@
 package com.componentes.trabalho.faq.service;
 
 import com.componentes.trabalho.faq.entity.Faq;
+import com.componentes.trabalho.faq.entrada.DtoEntradaInserirFaq;
 import com.componentes.trabalho.faq.repository.FaqRepository;
 import com.componentes.trabalho.faq.retorno.DtoRetornoConsultarFaq;
 import lombok.Data;
@@ -39,5 +40,17 @@ public class FaqService {
         return retorno;
 
     }
+
+    public Boolean inserirFaq(DtoEntradaInserirFaq entrada){
+
+        Faq novaFaq = Faq.builder()
+                         .pergunta(entrada.getPergunta())
+                         .resposta(entrada.getResposta())
+                         .build();
+
+        return (repository.save(novaFaq) != null);
+
+    }
+
 
 }
