@@ -1,6 +1,7 @@
 package com.componentes.trabalho.faq.service;
 
 import com.componentes.trabalho.faq.entity.Faq;
+import com.componentes.trabalho.faq.entrada.DtoEntradaAtualizarFaq;
 import com.componentes.trabalho.faq.entrada.DtoEntradaInserirFaq;
 import com.componentes.trabalho.faq.repository.FaqRepository;
 import com.componentes.trabalho.faq.retorno.DtoRetornoConsultarFaq;
@@ -49,6 +50,35 @@ public class FaqService {
                          .build();
 
         return (repository.save(novaFaq) != null);
+
+    }
+
+    public Boolean atualizarFaq(DtoEntradaAtualizarFaq entrada){
+
+        Faq faqBase = repository.getById(entrada.getId());
+
+        if(faqBase != null){
+
+            faqBase.setPergunta(entrada.getPergunta());
+            faqBase.setResposta(entrada.getResposta());
+
+        }
+
+        return (repository.save(faqBase) != null);
+
+    }
+
+    public Boolean deletarFaq(Integer id) {
+
+        try {
+
+            repository.deleteById(id);
+
+        } catch (Exception e){
+            return false;
+        }
+
+        return true;
 
     }
 
